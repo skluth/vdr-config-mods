@@ -1,0 +1,19 @@
+# /etc/default/vdr
+#
+# See also /usr/share/doc/vdr/README.Debian.gz
+#
+
+# ACPI rtc restart for next timer
+ACPI_ENABLED=yes
+
+# Wakeup time in seconds before next timer
+ACPI_START_AHEAD=300
+
+# Start machine at regular time if next timer is more 
+# than 2 days ahead, HH:MM
+ACPI_REGULAR_TIME=03:15 
+
+# Shutdown lifeguard, if a process is running shutdown is prevented
+# if not set or empty lifeguard is disabled
+LIFEGUARD_PROCESSES="kodi firefox chrome update-manager"
+

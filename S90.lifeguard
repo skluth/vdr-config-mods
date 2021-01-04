@@ -1,0 +1,39 @@
+#!/bin/sh
+# Test with /bin/sh /etc/vdr/shutdown-hooks/S90.lifeguard
+# $1 : Next timer posix UTC, or 0 if no timer
+# $2 : Next timer seconds from now, or 0 if no timer
+# $3 : Next timer title
+# $4 : Shutdown forced
+# Prevent shutdown if some processes are running
+
+# Check if forced shutdown
+if [ -n "$4" ]; then
+    logger -t vdr-lifeguard "Forced shutdown, no checks" $4
+    exit
+fi
+
+# Read from /etc/default/vdr, if LIFEGUARD_PROCESSES not set no checks
+PROCESSES=$(. /etc/default/vdr; echo $LIFEGUARD_PROCESSES)
+if [ -z "$PROCESSES" ]; then
+    logger -t vdr-lifeguard "No processes to check, disabled"
+    exit
+fi
+
+# Function checks for active processes (from stackoverflow ...)
+_isRunning() {
+    ps -o comm= -C "$1" 2>/dev/null | grep -x "$1" >/dev/null 2>&1
+}
+
+# Now check for processes, shutdown fails if process found
+logger -t vdr-lifeguard "Checking for processes" $PROCESSES
+for value in $PROCESSES
+do
+    if _isRunning $value; then
+        logger -t vdr-lifeguard "process $value running, no shutdown"
+        echo "ABORT_MESSAGE=\"Process $value running, no shutdown\""
+        exit 1
+    fi
+done
+logger -t vdr-lifeguard "No process found, shutdown"
+
+exit

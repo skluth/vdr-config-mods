@@ -1,0 +1,2 @@
+vdr	vdr/create_video_dir	boolean	true
+vdr	vdr/select_dvb_card	select	Satellite

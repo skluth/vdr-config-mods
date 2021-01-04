@@ -1,0 +1,11 @@
+aptitude
+dvb-apps
+w-scan
+gnome-tweak-tool
+gnome-shell-extension-autohidetopbar
+libdvd-pkg
+libdvdread7
+vdr
+vdr-plugin-vnsiserver
+kodi
+kodi-pvr-vdr-vnsi
