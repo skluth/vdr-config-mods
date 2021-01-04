@@ -9,6 +9,7 @@ apt-get update
 apt-get install debconf-utils
 debconf-set-selections vdr-debconf.txt
 cat packages.txt | xargs apt-get -y install
+dpkg-reconfigure libdvd-pkg
 
 # Install config mods
 systemctl stop vdr.service
