@@ -34,4 +34,3 @@ sudo -u tvglotzer DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${USERID}/bus gse
 sudo -u tvglotzer DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${USERID}/bus gsettings -schemadir ~/.local/share/gnome-shell/extensions/hidetopbar@mathieu.bidon.ca/schemas/ set org.gnome.shell.extensions.hidetopbar enable-active-window false
 
 exit
-
