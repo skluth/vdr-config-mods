@@ -12,28 +12,51 @@ if [ -n "$4" ]; then
     exit
 fi
 
-# Read from /etc/default/vdr, if LIFEGUARD_PROCESSES not set no checks
-PROCESSES=$(. /etc/default/vdr; echo $LIFEGUARD_PROCESSES)
-if [ -z "$PROCESSES" ]; then
-    logger -t vdr-lifeguard "No processes to check, disabled"
+# Check if enabled
+LIFEGUARD_ENABLED=$(. /etc/default/vdr;echo $LIFEGUARD_ENABLED)
+if [ -z "$LIFEGUARD_ENABLED" ]; then
+    logger -t vdr-lifeguard "Not enabled, exit"
     exit
 fi
 
-# Function checks for active processes (from stackoverflow ...)
+# Now check for processes, shutdown fails if process found
 _isRunning() {
     ps -o comm= -C "$1" 2>/dev/null | grep -x "$1" >/dev/null 2>&1
 }
+PROCESSES=$(. /etc/default/vdr; echo $LIFEGUARD_PROCESSES)
+if [ -z "$PROCESSES" ]; then
+    logger -t vdr-lifeguard "No processes to check"
+else
+    logger -t vdr-lifeguard "Checking for processes" $PROCESSES
+    for value in $PROCESSES
+    do
+        if _isRunning $value; then
+            logger -t vdr-lifeguard "Process $value running, no shutdown"
+            echo "ABORT_MESSAGE=\"Process $value running, no shutdown\""
+            exit 1
+        fi
+    done
+fi
 
-# Now check for processes, shutdown fails if process found
-logger -t vdr-lifeguard "Checking for processes" $PROCESSES
-for value in $PROCESSES
-do
-    if _isRunning $value; then
-        logger -t vdr-lifeguard "process $value running, no shutdown"
-        echo "ABORT_MESSAGE=\"Process $value running, no shutdown\""
-        exit 1
-    fi
-done
-logger -t vdr-lifeguard "No process found, shutdown"
+# Check for open ports by service name
+_isOpen() {
+    ss -r -o state established "( dport = :$1 or sport = :$1 )" 2>/dev/null | grep $(hostname) > /dev/null
+}
+SERVICES=$(. /etc/default/vdr; echo $LIFEGUARD_SERVICES)
+if [ -z "$SERVICES" ]; then
+    logger -t vdr-lifeguard "No services to check"
+else
+    logger -t vdr-lifeguard "Checking for services" $SERVICES
+    for value in $SERVICES
+    do
+        if _isOpen $value; then
+            logger -t vdr-lifeguard "Service $value active on port, no shutdown"
+            echo "ABORT_MESSAGE=\"Service $value active on port, no shutdown\""
+            exit 2
+        fi
+    done
+fi
 
+# The happy end
+logger -t vdr-lifeguard "No active process or service found, shutdown"
 exit

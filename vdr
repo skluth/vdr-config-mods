@@ -13,7 +13,8 @@ ACPI_START_AHEAD=300
 # than 2 days ahead, HH:MM
 ACPI_REGULAR_TIME=03:15 
 
-# Shutdown lifeguard, if a process is running shutdown is prevented
-# if not set or empty lifeguard is disabled
+# Shutdown lifeguard, if a process or service is running shutdown
+# is prevented
+LIFEGUARD_ENABLED=yes
 LIFEGUARD_PROCESSES="kodi firefox chrome update-manager"
-
+LIFEGUARD_SERVICES="ssh nfs"

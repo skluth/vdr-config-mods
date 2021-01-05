@@ -12,15 +12,17 @@ cat packages.txt | xargs apt-get -y install
 dpkg-reconfigure libdvd-pkg
 
 # Install config mods
-systemctl stop vdr.service
-cp 00-vdr.conf /etc/vdr/conf.d/
-cp setup.conf /var/lib/vdr/setup.conf
-cp S90.lifeguard /etc/vdr/shutdown-hooks/
-cp S95.acpi-wakeup /etc/vdr/shutdown-hooks/
-ln -s /etc/vdr/shutdown-hooks/S90.lifeguard /usr/share/vdr/shutdown-hooks/
-ln -s /etc/vdr/shutdown-hooks/S95.acpi-wakeup /usr/share/vdr/shutdown-hooks/
-cp vdr /etc/default/
-cp ngene_18.fw /lib/firmware/
+./install-config-mods.sh
+
+#systemctl stop vdr.service
+#cp 00-vdr.conf /etc/vdr/conf.d/
+#cp setup.conf /var/lib/vdr/setup.conf
+#cp S90.lifeguard /etc/vdr/shutdown-hooks/
+#cp S95.acpi-wakeup /etc/vdr/shutdown-hooks/
+#ln -s /etc/vdr/shutdown-hooks/S90.lifeguard /usr/share/vdr/shutdown-hooks/
+#ln -s /etc/vdr/shutdown-hooks/S95.acpi-wakeup /usr/share/vdr/shutdown-hooks/
+#cp vdr /etc/default/
+#cp ngene_18.fw /lib/firmware/
 
 # Add user and configure
 adduser tvglotzer
