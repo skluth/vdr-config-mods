@@ -2,22 +2,29 @@
 # Test with /bin/sh /etc/vdr/shutdown-hooks/S95.acpi-wakeup
 # $1 : Next timer, posix UTC, or 0 if no timer
 # $2 : Next timer seconds from now, or 0 if no timer
-# $3 : Next timer title
-# $4 : Shutdown forced
+# $3 : Next timer channel
+# $4 : Next timer file name
+# $5 : auto (0) or user (1) shutdown
+# Write next wakeup time to rtc
 
-# Read from vdr defaults or use our own
+# Welcome
+logger -t vdr-acpi-wakeup "Called with parameters 1: $1 2: $2 3: $3 4: $4 5: $5"
+
+# Check if enabled
 ACPI_ENABLED=$(. /etc/default/vdr;echo $ACPI_ENABLED)
 if [ -z "$ACPI_ENABLED" ]; then
     logger -t vdr-acpi-wakeup "Not enabled, exit"
     exit
 fi
+
+# Read defaults or use our own
 ACPI_REGULAR_TIME=$(. /etc/default/vdr;echo $ACPI_REGULAR_TIME)
 ACPI_START_AHEAD=$(. /etc/default/vdr;echo $ACPI_START_AHEAD)
 ACPI_REGULAR_TIME=${ACPI_REGULAR_TIME:-"00:00"}
 ACPI_START_AHEAD=${ACPI_START_AHEAD:-"300"}
 
 # Wake up in two days at ACPI_REGULAR_TIME, or at next timer,
-# this allows EPG updates
+# this allows EPG updates if no timer and no other usage
 DATEFIXPLUS=$(date +%s -d '2 days + today '"$ACPI_REGULAR_TIME")
 TIMER=$(($1 - $ACPI_START_AHEAD))
 if [ $1 -eq 0 ] || [ $DATEFIXPLUS -lt $TIMER ]; then
