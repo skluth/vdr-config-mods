@@ -17,7 +17,7 @@ dpkg-reconfigure libdvd-pkg
 # Add user and configure
 adduser tvglotzer
 echo tvglotzer:ninahagen | chpasswd
-cp shutdown-for-dock.desktop /home/tvglotzer/.local/share/applications/
+install -o tvglotzer -g tvglotzer shutdown-for-dock.desktop /home/tvglotzer/.local/share/applications/
 USERID=$(id -u tvglotzer)
 sudo -u tvglotzer DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${USERID}/bus gsettings set org.gnome.shell favorite-apps "[ 'firefox.desktop', 'org.gnome.Nautilus.desktop', 'rhythmbox.desktop', 'yelp.desktop', 'org.gnome.Terminal.desktop', 'kodi.desktop', 'org.gnome.tweaks.desktop', 'shutdown-for-dock.desktop']"
 sudo -u tvglotzer DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${USERID}/bus gsettings set org.gnome.shell enabled-extensions ['hidetopbar@mathieu.bidon.ca']
