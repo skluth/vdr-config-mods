@@ -6,7 +6,7 @@ mkdir -p /home/tvglotzer/.local/share/applications/
 cp shutdown-for-dock.desktop /home/tvglotzer/.local/share/applications/
 gsettings set org.gnome.shell favorite-apps "[ 'firefox.desktop', 'org.gnome.Nautilus.desktop', 'rhythmbox.desktop', 'yelp.desktop', 'org.gnome.Terminal.desktop', 'kodi.desktop', 'org.gnome.tweaks.desktop', 'shutdown-for-dock.desktop' ]"
 
-# Configure top bar "autohide" (only appears when mouse hits top)
+# Configure top bar autohide (only appears when mouse hits top)
 gsettings set org.gnome.shell disable-user-extensions false
 mkdir -p /home/tvglotzer/.local/share/gnome-shell/extensions/hidetopbar@mathieu.bidon.ca/schemas/
 cp /usr/share/gnome-shell/extensions/hidetopbar@mathieu.bidon.ca/schemas/gschemas.compiled /home/tvglotzer/.local/share/gnome-shell/extensions/hidetopbar\@mathieu.bidon.ca/schemas/

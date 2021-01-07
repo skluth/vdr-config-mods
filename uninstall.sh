@@ -3,7 +3,8 @@
 
 # Remove (purge) installed packages
 cat packages.txt | xargs apt-get -y purge
-apt-get autoremove
+apt-get -y purge libdvd-pkg
+apt-get -y autoremove
 
 add-apt-repository -y --remove ppa:team-xbmc/ppa
 
