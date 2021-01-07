@@ -2,15 +2,13 @@
 # Test with /bin/sh /etc/vdr/shutdown-hooks/S90.lifeguard
 # $1 : Next timer posix UTC, or 0 if no timer
 # $2 : Next timer seconds from now, or 0 if no timer
-# $3 : Next timer title
-# $4 : Shutdown forced
+# $3 : Next timer channel
+# $4 : Next timer file name
+# $5 : auto (0) or user (1) shutdown
 # Prevent shutdown if some processes are running
 
-# Check if forced shutdown
-if [ -n "$4" ]; then
-    logger -t vdr-lifeguard "Forced shutdown, no checks" $4
-    exit
-fi
+# Welcome
+logger -t vdr-lifeguard "Called with parameters 1: $1 2: $2 3: $3 4: $4 5: $5"
 
 # Check if enabled
 LIFEGUARD_ENABLED=$(. /etc/default/vdr;echo $LIFEGUARD_ENABLED)
@@ -32,6 +30,11 @@ else
     do
         if _isRunning $value; then
             logger -t vdr-lifeguard "Process $value running, no shutdown"
+            if [ "$5" -eq 1 ]; then
+                LOGGEDINUSER=$(who | grep ":0" | cut -d" " -f 1)
+                LOGGEDINUID=$(id -u $LOGGEDINUSER)
+                sudo -u $LOGGEDINUSER DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${LOGGEDINUID}/bus notify-send --icon=system-shutdown --urgency=normal "Shutdown requested" "Process $value running, no shutdown"
+            fi
             echo "ABORT_MESSAGE=\"Process $value running, no shutdown\""
             exit 1
         fi

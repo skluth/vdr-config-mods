@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Shutdown
-Exec=sh -c "notify-send --icon=system-shutdown --urgency=critical \"Shutdown requested\" \"Poweroff via VDR takes a few seconds\" ; svdrpsend HITK Power"
+Exec=sh -c "notify-send --icon=system-shutdown --urgency=normal \"Shutdown requested\" \"Poweroff via VDR takes a few seconds\" ; svdrpsend HITK Power"
 Comment=Shutdown via VDR Power key
 Terminal=false
 Type=Application
