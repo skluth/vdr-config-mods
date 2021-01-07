@@ -2,7 +2,8 @@
 # Install config mods
 systemctl stop vdr.service
 cp 00-vdr.conf /etc/vdr/conf.d/
-cp setup.conf /var/lib/vdr/setup.conf
+cp setup.conf /var/lib/vdr/
+cp channels.conf /var/lib/vdr/
 cp S90.lifeguard /etc/vdr/shutdown-hooks/
 cp S95.acpi-wakeup /etc/vdr/shutdown-hooks/
 ln -sf /etc/vdr/shutdown-hooks/S90.lifeguard /usr/share/vdr/shutdown-hooks/
