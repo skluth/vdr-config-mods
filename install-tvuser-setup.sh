@@ -4,7 +4,7 @@
 # Install Kodi, Tweaks and Power button in dock
 mkdir -p /home/tvglotzer/.local/share/applications/
 cp shutdown-for-dock.desktop /home/tvglotzer/.local/share/applications/
-gsettings set org.gnome.shell favorite-apps "[ 'firefox.desktop', 'org.gnome.Nautilus.desktop', 'rhythmbox.desktop', 'yelp.desktop', 'org.gnome.Terminal.desktop', 'kodi.desktop', 'org.gnome.tweaks.desktop', 'shutdown-for-dock.desktop' ]"
+gsettings set org.gnome.shell favorite-apps "[ 'firefox.desktop', 'google-chrome.desktop', 'org.gnome.Nautilus.desktop', 'rhythmbox.desktop', 'yelp.desktop', 'org.gnome.Terminal.desktop', 'kodi.desktop', 'org.gnome.tweaks.desktop', 'shutdown-for-dock.desktop' ]"
 
 # Configure top bar autohide (only appears when mouse hits top)
 gsettings set org.gnome.shell disable-user-extensions false

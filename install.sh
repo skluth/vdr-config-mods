@@ -1,7 +1,7 @@
 #!/bin/sh
 # Run as root with sudo
 
-# Add kodi ppa
+# Add kodi ppa (broken dependencies as of Jan 2021)
 # add-apt-repository -y -u ppa:team-xbmc/ppa
 
 # Packages
@@ -12,10 +12,15 @@ debconf-set-selections libdvd-pkg-debconf.txt
 apt-get -y install libdvd-pkg
 dpkg-reconfigure libdvd-pkg
 
+# Googlechrome
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+dpkg -i google-chrome-stable_current_amd64.deb
+
 # Install vdr config mods
 ./install-config-mods.sh
 
-# Add user and configure
+# Add tvuser, configuration after 1st gnome login with
+# install-tvuser-setup.sh
 adduser tvglotzer
 adduser --gecos "" --disabled-password tvglotzer
 echo tvglotzer:ninahagen | chpasswd
