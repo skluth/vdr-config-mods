@@ -1,6 +1,7 @@
 #!/bin/sh
 # Install config mods
 systemctl stop vdr.service
+install -d -o vdr -g vdr /srv/vdr/video
 cp 00-vdr.conf /etc/vdr/conf.d/
 cp setup.conf /var/lib/vdr/
 cp channels.conf /var/lib/vdr/
