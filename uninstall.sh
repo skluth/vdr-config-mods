@@ -10,7 +10,8 @@ apt-get -y autoremove
 # add-apt-repository -y --remove ppa:team-xbmc/ppa
 
 # Remove tvuser
-deluser --remove-home tvglotzer
+TVUSERNAME=$(cat tvusername.txt)
+deluser --remove-home $TVUSERNAME
 
 # Remove the extra firmware
 rm /lib/firmware/ngene_18.fw

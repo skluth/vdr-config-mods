@@ -21,7 +21,8 @@ dpkg -i google-chrome-stable_current_amd64.deb
 
 # Add tvuser, configuration after 1st gnome login with
 # install-tvuser-setup.sh
-adduser --gecos "" --disabled-password tvglotzer
-echo tvglotzer:ninahagen | chpasswd
+TVUSERNAME=$(cat tvusername.txt)
+adduser --gecos "" --disabled-password $TVUSERNAME
+echo $TVUSERNAME:ninahagen | chpasswd
 
 exit
