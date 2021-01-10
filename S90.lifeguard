@@ -54,6 +54,11 @@ else
     do
         if _isOpen $value; then
             logger -t vdr-lifeguard "Service $value active on port, no shutdown"
+            if [ "$5" -eq 1 ]; then
+                LOGGEDINUSER=$(who | grep ":0" | cut -d" " -f 1)
+                LOGGEDINUID=$(id -u $LOGGEDINUSER)
+                sudo -u $LOGGEDINUSER DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${LOGGEDINUID}/bus notify-send --icon=system-shutdown --urgency=normal "Shutdown requested" "Service $value active on port, no shutdown"
+            fi
             echo "ABORT_MESSAGE=\"Service $value active on port, no shutdown\""
             exit 2
         fi
