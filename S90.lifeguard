@@ -31,7 +31,7 @@ else
         if _isRunning $value; then
             logger -t vdr-lifeguard "Process $value running, no shutdown"
             if [ "$5" -eq 1 ]; then
-                LOGGEDINUSER=$(who | grep ":0" | cut -d" " -f 1)
+                LOGGEDINUSER=$(who | grep "(:0)" | cut -d" " -f 1)
                 LOGGEDINUID=$(id -u $LOGGEDINUSER)
                 sudo -u $LOGGEDINUSER DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${LOGGEDINUID}/bus notify-send --icon=system-shutdown --urgency=normal "Shutdown requested" "Process $value running, no shutdown"
             fi
@@ -55,7 +55,7 @@ else
         if _isOpen $value; then
             logger -t vdr-lifeguard "Service $value active on port, no shutdown"
             if [ "$5" -eq 1 ]; then
-                LOGGEDINUSER=$(who | grep ":0" | cut -d" " -f 1)
+                LOGGEDINUSER=$(who | grep "(:0)" | cut -d" " -f 1)
                 LOGGEDINUID=$(id -u $LOGGEDINUSER)
                 sudo -u $LOGGEDINUSER DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${LOGGEDINUID}/bus notify-send --icon=system-shutdown --urgency=normal "Shutdown requested" "Service $value active on port, no shutdown"
             fi
