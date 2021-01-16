@@ -1,3 +1,4 @@
+openssh-server
 dvb-apps
 w-scan
 gnome-tweak-tool
