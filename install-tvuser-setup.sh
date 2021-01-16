@@ -1,10 +1,7 @@
 #!/bin/sh
-# Run as tvglotzer after 1st gnome login
+# Run as tvusername after 1st gnome login
 
-# Get the username
-TVUSERNAME=$(cat tvusername.txt)
-
-# Install Kodi, Tweaks and Power button in dock
+# Install browsers, terminal, Kodi, Tweaks and Power button in dock
 mkdir -p ${HOME}/.local/share/applications/
 cp shutdown-for-dock.desktop ${HOME}/.local/share/applications/
 gsettings set org.gnome.shell favorite-apps "[ 'firefox.desktop', 'google-chrome.desktop', 'org.gnome.Nautilus.desktop', 'rhythmbox.desktop', 'yelp.desktop', 'org.gnome.Terminal.desktop', 'kodi.desktop', 'org.gnome.tweaks.desktop', 'shutdown-for-dock.desktop' ]"
