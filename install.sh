@@ -23,7 +23,5 @@ dpkg -i google-chrome-stable_current_amd64.deb
 # install-tvuser-setup.sh
 TVUSERNAME=$(cat tvusername.txt)
 adduser $TVUSERNAME
-#adduser --gecos "" --disabled-password $TVUSERNAME
-#echo $TVUSERNAME:ninahagen | chpasswd
 
 exit
