@@ -18,10 +18,9 @@ dpkg-reconfigure libdvd-pkg
 # Add tvuser, configuration after 1st gnome login with
 # install-tvuser-setup.sh
 TVUSERNAME=$(cat tvusername.txt)
-adduser $TVUSERNAME
-
+adduser -q $TVUSERNAME || true
 
 install -o $TVUSERNAME -g $TVUSERNAME install-tvuser-setup.sh /home/$TVUSERNAME
-
+install -o $TVUSERNAME -g $TVUSERNAME shutdown-for-dock.desktop /home/$TVUSERNAME
 
 exit
