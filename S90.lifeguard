@@ -31,8 +31,10 @@ else
         if _isRunning $value; then
             logger -t vdr-lifeguard "Process $value running, no shutdown"
             if [ "$5" -eq 1 ]; then
-                LOGGEDINUSER=$(who | grep "(:0)" | cut -d" " -f 1)
-                LOGGEDINUID=$(id -u $LOGGEDINUSER)
+#                LOGGEDINUSER=$(who | grep "(:0)" | cut -d" " -f 1)
+#                LOGGEDINUID=$(id -u $LOGGEDINUSER)
+		LOGGEDINUSER=$(loginctl list-sessions | grep seat0 | awk '{print $3}')
+		LOGGEDINUID=$(loginctl list-sessions | grep seat0 | awk '{print $2}')
                 sudo -u $LOGGEDINUSER DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${LOGGEDINUID}/bus notify-send --icon=system-shutdown --urgency=normal "Shutdown requested" "Process $value running, no shutdown"
             fi
             echo "ABORT_MESSAGE=\"Process $value running, no shutdown\""
