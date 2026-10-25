@@ -12,10 +12,6 @@ debconf-set-selections libdvd-pkg-debconf.txt
 apt-get -y install libdvd-pkg
 dpkg-reconfigure libdvd-pkg
 
-# Googlechrome
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-dpkg -i google-chrome-stable_current_amd64.deb
-
 # Install vdr config mods
 ./install-config-mods.sh
 
@@ -23,5 +19,9 @@ dpkg -i google-chrome-stable_current_amd64.deb
 # install-tvuser-setup.sh
 TVUSERNAME=$(cat tvusername.txt)
 adduser $TVUSERNAME
+
+
+install -o $TVUSERNAME -g $TVUSERNAME install-tvuser-setup.sh /home/$TVUSERNAME
+
 
 exit

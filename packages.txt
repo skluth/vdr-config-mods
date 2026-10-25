@@ -1,9 +1,8 @@
 openssh-server
 dvb-apps
 w-scan
-gnome-tweak-tool
-gnome-shell-extension-autohidetopbar
-libdvdread7
+gnome-tweaks
+libdvdread8t64
 vdr
 vdr-plugin-vnsiserver
 kodi
